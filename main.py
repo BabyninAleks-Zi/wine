@@ -14,6 +14,16 @@ template = env.get_template('template.html')
 company_age = date.today().year-1920
 
 
+def years_word(company_age):
+    if 11 <= company_age % 100 <= 14:
+        return 'лет'
+    if company_age % 10 == 1:
+        return 'год'
+    if 2 <= company_age % 10 <= 4:
+        return 'года'
+    return 'лет'
+
+
 def get_wines():
     wines_data = pandas.read_excel('wine3.xlsx')
     wines_data = wines_data.fillna('')
@@ -27,16 +37,6 @@ def get_wines():
             'Акция': row['Акция']
         })
     return dict(grouped_wines)
-
-
-def years_word(company_age):
-    if 11 <= company_age % 100 <= 14:
-        return 'лет'
-    if company_age % 10 == 1:
-        return 'год'
-    if 2 <= company_age % 10 <= 4:
-        return 'года'
-    return 'лет'
 
 
 rendered_page = template.render(
